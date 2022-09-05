@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
 
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import refresh_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
+
 from quickstart import views
 
 router=routers.DefaultRouter()
@@ -26,6 +30,9 @@ router.register(r'groups',views.GroupViewSets)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth-jwt/', obtain_jwt_token),
+    path('auth-jwt-refresh/', refresh_jwt_token),
+    path('auth-jwt-verify/', verify_jwt_token),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls',namespace='rest_framework'))
 ]
